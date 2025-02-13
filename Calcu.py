@@ -16,6 +16,8 @@ def calcular_inversa(matriz):
     st.write(matriz_ampliada)
     st.markdown("La matriz aumentada es una combinación de la matriz original y la matriz identidad.")
     
+    paso_num = 2  # Iniciamos la numeración de los pasos desde el paso 2 (después de la matriz inicial)
+    
     for i in range(n):
         pivote = matriz_ampliada[i, i]
         
@@ -26,18 +28,24 @@ def calcular_inversa(matriz):
                     matriz_ampliada[[i, j]] = matriz_ampliada[[j, i]]  # Intercambiamos las filas
                     break
         
-        # Hacemos el pivote de la fila i
-        matriz_ampliada[i] = matriz_ampliada[i] / matriz_ampliada[i, i]
-        st.markdown(f"Paso {i+2}: Hacer el pivote de la fila {i+1}. Dividimos toda la fila {i+1} por el elemento {pivote:.2f} para que el pivote sea 1.")
+        # Dividimos la fila i por el pivote solo si no es 1
+        if pivote != 1:
+            matriz_ampliada[i] = matriz_ampliada[i] / pivote
+            st.markdown(f"Paso {paso_num}: Hacer el pivote de la fila {i+1}. Dividimos toda la fila {i+1} por el elemento {pivote:.2f} para que el pivote sea 1.")
+        else:
+            st.markdown(f"Paso {paso_num}: El pivote de la fila {i+1} ya es 1, no es necesario dividir.")
+        
         st.write(matriz_ampliada)
+        paso_num += 1
         
         # Restamos múltiplos de la fila i de las otras filas
         for j in range(n):
             if j != i:
-                matriz_ampliada[j] -= matriz_ampliada[j, i] * matriz_ampliada[i]
-        
-        st.markdown(f"Paso {i+3}: Restamos {pivote:.2f} veces la fila {i+1} de la fila {j+1} para hacer ceros en la columna {i+1}.")
-        st.write(matriz_ampliada)
+                factor = matriz_ampliada[j, i]
+                matriz_ampliada[j] -= factor * matriz_ampliada[i]
+                st.markdown(f"Paso {paso_num}: Restamos {factor:.2f} veces la fila {i+1} de la fila {j+1} para hacer ceros en la columna {i+1}.")
+                st.write(matriz_ampliada)
+                paso_num += 1
     
     return matriz_ampliada[:, n:]
 
