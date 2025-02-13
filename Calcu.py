@@ -2,42 +2,64 @@ import streamlit as st
 import numpy as np
 
 def es_invertible(matriz):
-    """Verifica si la matriz es invertible comprobando su determinante"""
     return np.linalg.det(matriz) != 0
 
 def calcular_inversa(matriz):
-    """Calcula la inversa de una matriz utilizando Gauss-Jordan"""
     n = matriz.shape[0]
-    # Crear una matriz identidad
     identidad = np.eye(n)
-    # Realizamos una copia de la matriz original para no modificarla
     matriz_ampliada = np.hstack([matriz, identidad])
     
-    # Aplicamos el algoritmo de eliminación de Gauss-Jordan
     for i in range(n):
-        # Asegurarnos de que el pivote no sea 0
         if matriz_ampliada[i, i] == 0:
             for j in range(i+1, n):
                 if matriz_ampliada[j, i] != 0:
-                    # Intercambiamos filas
                     matriz_ampliada[[i, j]] = matriz_ampliada[[j, i]]
                     break
-        # Normalizamos el pivote
         matriz_ampliada[i] = matriz_ampliada[i] / matriz_ampliada[i, i]
-        
-        # Hacemos cero los elementos debajo y encima del pivote
         for j in range(n):
             if j != i:
                 matriz_ampliada[j] -= matriz_ampliada[j, i] * matriz_ampliada[i]
         
-        # Mostrar el paso actual
         st.write(f"Paso {i+1}:")
-        st.write(matriz_ampliada[:, n:])  # Mostrar solo la parte de la inversa
+        st.write(matriz_ampliada[:, n:])
     
     return matriz_ampliada[:, n:]
 
+# Teoría
 st.title("Calculadora de Matriz Inversa con Gauss-Jordan")
+st.markdown("""
+### Teoría: Método de Gauss-Jordan
 
+El **método de Gauss-Jordan** es una técnica de álgebra lineal utilizada para encontrar la **inversa de una matriz**. La idea es aplicar operaciones elementales sobre las filas de una matriz para convertir la parte izquierda en la **matriz identidad** mientras modificamos la parte derecha para obtener la matriz inversa.
+
+#### Pasos:
+1. Combina la matriz original con la matriz identidad.
+2. Realiza operaciones elementales en las filas para transformar la matriz original en la identidad.
+3. La parte derecha será la inversa de la matriz original.
+
+#### Ejemplo:
+Supongamos que tenemos la siguiente matriz 2x2:
+
+\[
+A = \begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix}
+\]
+
+La matriz identidad de 2x2 es:
+
+\[
+I = \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}
+\]
+
+Combinamos la matriz \(A\) y \(I\) para formar la matriz aumentada:
+
+\[
+[A | I] = \begin{bmatrix} 1 & 2 & | & 1 & 0 \\ 3 & 4 & | & 0 & 1 \end{bmatrix}
+\]
+
+A partir de aquí, aplicamos las operaciones de Gauss-Jordan para obtener la inversa de la matriz \(A\).
+""")
+
+# Interacción del usuario para ingresar la matriz
 n = st.number_input("Tamaño de la matriz (n x n):", min_value=2, max_value=10, step=1, value=2)
 
 matriz = []
