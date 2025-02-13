@@ -43,19 +43,19 @@ El **método de Gauss-Jordan** es una técnica de álgebra lineal utilizada para
 Supongamos que tenemos la siguiente matriz 2x2:
 
 $$
-A = \begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix}
+A = \begin{bmatrix} 1 & 2 \\\ 3 & 4 \end{bmatrix}
 $$
 
 La matriz identidad de 2x2 es:
 
 $$
-I = \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}
+I = \begin{bmatrix} 1 & 0 \\\ 0 & 1 \end{bmatrix}
 $$
 
 Combinamos la matriz \(A\) y \(I\) para formar la matriz aumentada:
 
 $$
-[A | I] = \begin{bmatrix} 1 & 2 & | & 1 & 0 \\ 3 & 4 & | & 0 & 1 \end{bmatrix}
+[A | I] = \begin{bmatrix} 1 & 2 & | & 1 & 0 \\\ 3 & 4 & | & 0 & 1 \end{bmatrix}
 $$
 
 A partir de aquí, aplicamos las operaciones de Gauss-Jordan para obtener la inversa de la matriz \(A\).
