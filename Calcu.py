@@ -2,9 +2,11 @@ import streamlit as st
 import numpy as np
 
 def es_invertible(matriz):
+    """Verifica si la matriz es invertible comprobando su determinante"""
     return np.linalg.det(matriz) != 0
 
 def calcular_inversa(matriz):
+    """Calcula la inversa de una matriz utilizando Gauss-Jordan"""
     n = matriz.shape[0]
     identidad = np.eye(n)
     matriz_ampliada = np.hstack([matriz, identidad])
@@ -40,21 +42,21 @@ El **método de Gauss-Jordan** es una técnica de álgebra lineal utilizada para
 #### Ejemplo:
 Supongamos que tenemos la siguiente matriz 2x2:
 
-\[
+$$
 A = \begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix}
-\]
+$$
 
 La matriz identidad de 2x2 es:
 
-\[
+$$
 I = \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}
-\]
+$$
 
 Combinamos la matriz \(A\) y \(I\) para formar la matriz aumentada:
 
-\[
+$$
 [A | I] = \begin{bmatrix} 1 & 2 & | & 1 & 0 \\ 3 & 4 & | & 0 & 1 \end{bmatrix}
-\]
+$$
 
 A partir de aquí, aplicamos las operaciones de Gauss-Jordan para obtener la inversa de la matriz \(A\).
 """)
