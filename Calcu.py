@@ -35,8 +35,9 @@ def calcular_inversa(matriz):
             st.write(matriz_ampliada)
             paso_num += 1
         else:
-            st.markdown(f"Paso {paso_num}: El pivote de la fila {i+1} ya es 1, no es necesario dividir.")
-            paso_num += 1
+            if np.any(matriz_ampliada[i] != matriz_ampliada[i]):  # Verificar que no haya cambios
+                st.markdown(f"Paso {paso_num}: El pivote de la fila {i+1} ya es 1, no es necesario dividir.")
+                paso_num += 1
         
         # Restamos múltiplos de la fila i de las otras filas solo si el factor no es 0
         for j in range(n):
