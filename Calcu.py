@@ -11,19 +11,29 @@ def calcular_inversa(matriz):
     identidad = np.eye(n)
     matriz_ampliada = np.hstack([matriz, identidad])
     
+    # Paso 1: Mostrar la matriz aumentada inicial
+    st.write("Paso 1: Matriz aumentada inicial")
+    st.write(matriz_ampliada)
+    st.markdown("La matriz aumentada es una combinación de la matriz original y la matriz identidad.")
+    
     for i in range(n):
+        # Si el elemento diagonal es 0, buscamos una fila que lo haga diferente de 0
         if matriz_ampliada[i, i] == 0:
             for j in range(i+1, n):
                 if matriz_ampliada[j, i] != 0:
-                    matriz_ampliada[[i, j]] = matriz_ampliada[[j, i]]
+                    matriz_ampliada[[i, j]] = matriz_ampliada[[j, i]]  # Intercambiamos las filas
                     break
+        # Hacemos el pivote de la fila i
         matriz_ampliada[i] = matriz_ampliada[i] / matriz_ampliada[i, i]
+        st.markdown(f"Paso {i+2}: Hacer el pivote de la fila {i+1}. Dividimos toda la fila {i+1} por el elemento {matriz_ampliada[i, i]:.2f} para que el pivote sea 1.")
+        st.write(matriz_ampliada)
+        
+        # Restamos múltiplos de la fila i de las otras filas
         for j in range(n):
             if j != i:
                 matriz_ampliada[j] -= matriz_ampliada[j, i] * matriz_ampliada[i]
         
-        # Mostrar la matriz aumentada completa
-        st.write(f"Paso {i+1}:")
+        st.markdown(f"Paso {i+3}: Restamos {matriz_ampliada[i, i]:.2f} veces la fila {i+1} de la fila {j+1} para hacer ceros en la columna {i+1}.")
         st.write(matriz_ampliada)
     
     return matriz_ampliada[:, n:]
