@@ -32,20 +32,21 @@ def calcular_inversa(matriz):
         if pivote != 1:
             matriz_ampliada[i] = matriz_ampliada[i] / pivote
             st.markdown(f"Paso {paso_num}: Hacer el pivote de la fila {i+1}. Dividimos toda la fila {i+1} por el elemento {pivote:.2f} para que el pivote sea 1.")
+            st.write(matriz_ampliada)
+            paso_num += 1
         else:
             st.markdown(f"Paso {paso_num}: El pivote de la fila {i+1} ya es 1, no es necesario dividir.")
+            paso_num += 1
         
-        st.write(matriz_ampliada)
-        paso_num += 1
-        
-        # Restamos múltiplos de la fila i de las otras filas
+        # Restamos múltiplos de la fila i de las otras filas solo si el factor no es 0
         for j in range(n):
             if j != i:
                 factor = matriz_ampliada[j, i]
-                matriz_ampliada[j] -= factor * matriz_ampliada[i]
-                st.markdown(f"Paso {paso_num}: Restamos {factor:.2f} veces la fila {i+1} de la fila {j+1} para hacer ceros en la columna {i+1}.")
-                st.write(matriz_ampliada)
-                paso_num += 1
+                if factor != 0:  # Solo realizamos la resta si el factor no es 0
+                    matriz_ampliada[j] -= factor * matriz_ampliada[i]
+                    st.markdown(f"Paso {paso_num}: Restamos {factor:.2f} veces la fila {i+1} de la fila {j+1} para hacer ceros en la columna {i+1}.")
+                    st.write(matriz_ampliada)
+                    paso_num += 1
     
     return matriz_ampliada[:, n:]
 
