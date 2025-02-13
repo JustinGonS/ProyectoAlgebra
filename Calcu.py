@@ -22,8 +22,9 @@ def calcular_inversa(matriz):
             if j != i:
                 matriz_ampliada[j] -= matriz_ampliada[j, i] * matriz_ampliada[i]
         
+        # Mostrar la matriz aumentada completa
         st.write(f"Paso {i+1}:")
-        st.write(matriz_ampliada[:, n:])
+        st.write(matriz_ampliada)
     
     return matriz_ampliada[:, n:]
 
